@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dylan Hickey — LoJack</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap');
+
+  :root{
+    --charcoal-0:#151517;
+    --charcoal-1:#201F22;
+    --charcoal-2:#2B2A2E;
+    --line:#3A393E;
+    --orange:#F2661A;
+    --orange-dim:#C4501A;
+    --paper:#F6F3EE;
+    --steel:#93949A;
+    --green:#3FCB86;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+
+  html,body{
+    background:var(--charcoal-0);
+    color:var(--paper);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    padding:0;
+  }
+
+  main{
+    width:100%;
+    max-width:460px;
+    min-height:100vh;
+    background:var(--charcoal-1);
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* ---- Top bar ---- */
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:22px 28px 0 28px;
+  }
+  .wordmark{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:0.14em;
+    color:var(--paper);
+  }
+  .wordmark span{color:var(--orange);}
+  .status{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    color:var(--steel);
+    text-transform:uppercase;
+  }
+  .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 0 0 rgba(63,203,134,0.6);
+    animation:pulse-dot 2s infinite;
+  }
+  @keyframes pulse-dot{
+    0%{box-shadow:0 0 0 0 rgba(63,203,134,0.55);}
+    70%{box-shadow:0 0 0 7px rgba(63,203,134,0);}
+    100%{box-shadow:0 0 0 0 rgba(63,203,134,0);}
+  }
+
+  /* ---- Hero / signature radar ---- */
+  .hero{
+    position:relative;
+    padding:56px 28px 30px 28px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .radar{
+    position:absolute;
+    top:-40px;
+    right:-60px;
+    width:260px;
+    height:260px;
+    pointer-events:none;
+  }
+  .radar-ring{
+    position:absolute;
+    top:50%;left:50%;
+    border:1px solid var(--orange);
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    opacity:0;
+    animation:radar-sweep 3.6s ease-out infinite;
+  }
+  .radar-ring:nth-child(1){width:60px;height:60px;animation-delay:0s;}
+  .radar-ring:nth-child(2){width:60px;height:60px;animation-delay:1.2s;}
+  .radar-ring:nth-child(3){width:60px;height:60px;animation-delay:2.4s;}
+  @keyframes radar-sweep{
+    0%{width:40px;height:40px;opacity:0.55;}
+    100%{width:260px;height:260px;opacity:0;}
+  }
+  .radar-core{
+    position:absolute;top:50%;left:50%;
+    width:8px;height:8px;
+    background:var(--orange);
+    border-radius:50%;
+    transform:translate(-50%,-50%);
+    box-shadow:0 0 14px 3px rgba(242,102,26,0.7);
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--orange);
+    margin-bottom:14px;
+  }
+  h1{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    font-size:40px;
+    line-height:1.02;
+    letter-spacing:-0.01em;
+    color:var(--paper);
+  }
+  .role{
+    font-family:'Inter',sans-serif;
+    font-weight:500;
+    font-size:15px;
+    color:var(--steel);
+    margin-top:10px;
+  }
+
+  /* ---- Pitch ---- */
+  .pitch{
+    padding:4px 28px 28px 28px;
+  }
+  .pitch p{
+    font-size:16px;
+    line-height:1.55;
+    color:#DCDAD5;
+  }
+  .pitch strong{
+    color:var(--paper);
+    font-weight:600;
+  }
+
+  /* ---- Value strip ---- */
+  .strip{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .strip-3{grid-template-columns:1fr 1fr 1fr;}
+  .strip-item{
+    padding:20px 24px;
+    border-right:1px solid var(--line);
+  }
+  .strip-3 .strip-item{padding:20px 14px;}
+  .strip-item:last-child{border-right:none;}
+  .strip-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--steel);
+    margin-bottom:8px;
+  }
+  .strip-value{
+    font-family:'Oswald',sans-serif;
+    font-size:16px;
+    font-weight:500;
+    color:var(--paper);
+    line-height:1.3;
+  }
+  .strip-3 .strip-value{font-size:14px;line-height:1.25;}
+
+  /* ---- Contact actions ---- */
+  .actions{
+    padding:28px 28px 20px 28px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .btn{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:16px 18px;
+    border-radius:10px;
+    text-decoration:none;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .btn:active{transform:scale(0.98);}
+  .btn-primary{
+    background:var(--orange);
+    color:var(--charcoal-0);
+  }
+  .btn-secondary{
+    background:var(--charcoal-2);
+    color:var(--paper);
+    border:1px solid var(--line);
+  }
+  .btn-icon{
+    width:20px;height:20px;
+    flex-shrink:0;
+  }
+  .btn-sub{
+    display:block;
+    font-weight:400;
+    font-size:12px;
+    opacity:0.75;
+    margin-top:2px;
+  }
+
+  footer{
+    margin-top:auto;
+    padding:20px 28px 32px 28px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .footer-text{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.06em;
+    color:var(--steel);
+    text-transform:uppercase;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .dot, .radar-ring{animation:none;}
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <div class="topbar">
+    <div class="wordmark">LO<span>JACK</span></div>
+    <div class="status"><span class="dot"></span>rep online</div>
+  </div>
+
+  <div class="hero">
+    <div class="radar" aria-hidden="true">
+      <div class="radar-ring"></div>
+      <div class="radar-ring"></div>
+      <div class="radar-ring"></div>
+      <div class="radar-core"></div>
+    </div>
+    <div class="eyebrow">Your LoJack Contact</div>
+    <h1>Dylan<br>Hickey</h1>
+    <div class="role">LoJack Representative</div>
+  </div>
+
+  <div class="pitch">
+    <p><strong>One system, three ways it pays for itself.</strong> Track and locate every unit on your lot in real time, cut down on lost time and shrinkage, and recover stolen vehicles fast enough to protect the deal. I work with GMs and F&amp;I teams to turn that into more PVR on every sale.</p>
+  </div>
+
+  <div class="strip strip-3">
+    <div class="strip-item">
+      <div class="strip-label">Focus</div>
+      <div class="strip-value">Increase PVR</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-label">Focus</div>
+      <div class="strip-value">Lot Management</div>
+    </div>
+    <div class="strip-item">
+      <div class="strip-label">Focus</div>
+      <div class="strip-value">Stolen Vehicle Recovery</div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <a class="btn btn-primary" href="tel:+14808228814">
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span>Call Dylan<span class="btn-sub">480-822-8814</span></span>
+    </a>
+    <a class="btn btn-secondary" href="mailto:Dylan.hickey@solera.com">
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <span>Email Dylan<span class="btn-sub">Dylan.hickey@solera.com</span></span>
+    </a>
+    <a class="btn btn-secondary" id="vcard-btn" href="#" download="Dylan-Hickey-LoJack.vcf">
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Save Contact<span class="btn-sub">Adds to your phone</span></span>
+    </a>
+  </div>
+
+  <footer>
+    <div class="footer-text">LoJack · Vehicle Recovery</div>
+    <div class="footer-text">Dealer Solutions</div>
+  </footer>
+
+</main>
+
+<script>
+  const vcard = [
+    "BEGIN:VCARD",
+    "VERSION:3.0",
+    "N:Hickey;Dylan;;;",
+    "FN:Dylan Hickey",
+    "ORG:LoJack",
+    "TITLE:LoJack Representative",
+    "TEL;TYPE=CELL:+1-480-822-8814",
+    "EMAIL:Dylan.hickey@solera.com",
+    "END:VCARD"
+  ].join("\n");
+  const blob = new Blob([vcard], { type: "text/vcard" });
+  document.getElementById("vcard-btn").href = URL.createObjectURL(blob);
+</script>
+
+</body>
+</html>
