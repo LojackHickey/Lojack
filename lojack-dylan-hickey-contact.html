@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dylan Hickey — LoJack</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap');
 
@@ -193,9 +194,34 @@
   }
   .strip-3 .strip-value{font-size:14px;line-height:1.25;}
 
+  /* ---- QR Code Section ---- */
+  .qr-section{
+    padding:20px 28px;
+    border-top:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+  }
+  .qr-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--steel);
+  }
+  #qrcode{
+    background:var(--paper);
+    padding:12px;
+    border-radius:8px;
+  }
+  #qrcode img{
+    display:block;
+  }
+
   /* ---- Contact actions ---- */
   .actions{
-    padding:28px 28px 20px 28px;
+    padding:20px 28px 20px 28px;
     display:flex;
     flex-direction:column;
     gap:12px;
@@ -275,7 +301,7 @@
   </div>
 
   <div class="pitch">
-    <p><strong>One system, three ways it pays for itself.</strong> Track and locate every unit on your lot in real time, cut down on lost time and shrinkage, and recover stolen vehicles fast enough to protect the deal. I work with GMs and F&amp;I teams to turn that into more PVR on every sale.</p>
+    <p><strong>One system, three ways it pays for itself.</strong> Track and locate every unit on your lot in real time, cut down on lost time and shrinkage, and recover stolen vehicles fast enough to improve your recovery rates.</p>
   </div>
 
   <div class="strip strip-3">
@@ -293,17 +319,22 @@
     </div>
   </div>
 
+  <div class="qr-section">
+    <div class="qr-label">Scan to Save Contact</div>
+    <div id="qrcode"></div>
+  </div>
+
   <div class="actions">
     <a class="btn btn-primary" href="tel:+14808228814">
-      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
       <span>Call Dylan<span class="btn-sub">480-822-8814</span></span>
     </a>
     <a class="btn btn-secondary" href="mailto:Dylan.hickey@solera.com">
-      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
       <span>Email Dylan<span class="btn-sub">Dylan.hickey@solera.com</span></span>
     </a>
     <a class="btn btn-secondary" id="vcard-btn" href="#" download="Dylan-Hickey-LoJack.vcf">
-      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
       <span>Save Contact<span class="btn-sub">Adds to your phone</span></span>
     </a>
   </div>
@@ -329,6 +360,16 @@
   ].join("\n");
   const blob = new Blob([vcard], { type: "text/vcard" });
   document.getElementById("vcard-btn").href = URL.createObjectURL(blob);
+
+  // Generate QR Code with vCard data
+  new QRCode(document.getElementById("qrcode"), {
+    text: vcard,
+    width: 150,
+    height: 150,
+    colorDark: "#151517",
+    colorLight: "#F6F3EE",
+    correctLevel: QRCode.CorrectLevel.H
+  });
 </script>
 
 </body>
